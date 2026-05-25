@@ -110,6 +110,11 @@ public class PatientController {
         if (lastname == null || lastname.isBlank())   return new Response(StatusCode.BAD_REQUEST, "Lastname is required.");
         if (password == null || password.isBlank())   return new Response(StatusCode.BAD_REQUEST, "Password is required.");
         if (!password.equals(confirm))                return new Response(StatusCode.BAD_REQUEST, "Passwords do not match.");
+        if (email == null || email.isBlank())         return new Response(StatusCode.BAD_REQUEST, "Email is required.");
+        if (birthdateStr == null || birthdateStr.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Birthdate is required.");
+        if (phoneStr == null || phoneStr.isBlank())   return new Response(StatusCode.BAD_REQUEST, "Phone is required.");
+        if (genderStr == null || genderStr.isBlank()) return new Response(StatusCode.BAD_REQUEST, "Gender is required.");
 
         long id;
         try { id = Long.parseLong(idStr); } catch (NumberFormatException e) {

@@ -27,6 +27,9 @@ public enum Specialty {
 
     // Búsqueda lineal sobre values() — tolera variaciones de capitalización desde la vista con equalsIgnoreCase
     public static Specialty fromDisplayName(String display) {
+        if (display == null) {
+            throw new IllegalArgumentException("Unknown specialty: null");
+        }
         for (Specialty s : values()) {
             if (s.displayName.equalsIgnoreCase(display)) return s;
         }

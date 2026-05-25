@@ -34,6 +34,12 @@ public class PrescriptionController {
         // Validación: el nombre del medicamento es obligatorio
         if (medicationName == null || medicationName.isBlank())
             return new Response(StatusCode.BAD_REQUEST, "Medication name is required.");
+        if (doseStr == null || doseStr.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Dose is required.");
+        if (durationStr == null || durationStr.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Duration is required.");
+        if (frequencyStr == null || frequencyStr.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Frequency is required.");
         
         // Se busca la cita en el repositorio por su ID
         Optional<Appointment> opt = appointmentRepository.findById(appointmentId);

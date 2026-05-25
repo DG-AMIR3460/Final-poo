@@ -152,6 +152,7 @@ public class HospitalizationController {
 
     // Retorna null en lugar de lanzar excepción — simplifica el flujo de validación en los métodos públicos
     private LocalDate parseDate(String dateStr) {
+        if (dateStr == null) return null;
         if (!DATE_PATTERN.matcher(dateStr).matches()) return null;
         try { return LocalDate.parse(dateStr); } catch (DateTimeParseException e) { return null; }
     }

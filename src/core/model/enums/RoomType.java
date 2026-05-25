@@ -14,6 +14,9 @@ public enum RoomType {
 
     // fromDisplayName centraliza la conversión de String a enum; el toUpperCase absorbe variaciones de capitalización desde la vista
     public static RoomType fromDisplayName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Unknown room type: null");
+        }
         return valueOf(name.toUpperCase());
     }
 }

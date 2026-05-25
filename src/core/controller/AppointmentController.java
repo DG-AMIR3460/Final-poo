@@ -121,6 +121,8 @@ public class AppointmentController {
         Optional<Appointment> opt = appointmentRepository.findById(appointmentId);
         if (opt.isEmpty()) return new Response(StatusCode.NOT_FOUND, "Appointment not found.");
 
+        if (newTimeStr == null)
+            return new Response(StatusCode.BAD_REQUEST, "Time is required.");
         if (!TIME_PATTERN.matcher(newTimeStr).matches())
             return new Response(StatusCode.BAD_REQUEST, "Time must follow hh:mm format.");
         int minutes;
@@ -167,6 +169,8 @@ public class AppointmentController {
     public void removeObserver(ModelObserver observer) { appointmentManager.removeObserver(observer); }
 
     private Response validateDateTime(String dateStr, String timeStr) {
+        if (dateStr == null || timeStr == null)
+            return new Response(StatusCode.BAD_REQUEST, "Date and time are required.");
         if (!DATE_PATTERN.matcher(dateStr).matches())
             return new Response(StatusCode.BAD_REQUEST, "Date must follow YYYY-MM-DD format.");
         try { LocalDate.parse(dateStr); } catch (DateTimeParseException e) {
@@ -179,6 +183,9 @@ public class AppointmentController {
         catch (NumberFormatException e) { return new Response(StatusCode.BAD_REQUEST, "Invalid time."); }
         if (!VALID_MINUTES.contains(minutes))
             return new Response(StatusCode.BAD_REQUEST, "Minutes must be 00, 15, 30, or 45.");
+        try { LocalTime.parse(timeStr); } catch (DateTimeParseException e) {
+            return new Response(StatusCode.BAD_REQUEST, "Invalid time.");
+        }
         return new Response(StatusCode.OK, "OK");
     }
 

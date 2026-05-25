@@ -97,6 +97,12 @@ public class DoctorController {
         if (lastname == null || lastname.isBlank())   return new Response(StatusCode.BAD_REQUEST, "Lastname is required.");
         if (password == null || password.isBlank())   return new Response(StatusCode.BAD_REQUEST, "Password is required.");
         if (!password.equals(confirm))                return new Response(StatusCode.BAD_REQUEST, "Passwords do not match.");
+        if (specialtyDisplay == null || specialtyDisplay.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Specialty is required.");
+        if (licenceNumber == null || licenceNumber.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Licence is required.");
+        if (assignedOffice == null || assignedOffice.isBlank())
+            return new Response(StatusCode.BAD_REQUEST, "Office is required.");
 
         long id;
         try { id = Long.parseLong(idStr); } catch (NumberFormatException e) {
